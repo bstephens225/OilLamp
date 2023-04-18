@@ -44,7 +44,7 @@ public class Item {
         if (flammable==true){
             if(burnt==false){
                 burnt=true;
-                addendum("now burnt");
+                addendum(" now burnt");
                 return "you burnt "+name;
             }else{
                 return name+" is already burnt";
@@ -58,7 +58,7 @@ public class Item {
         if (breakable==true){
             if(broken==false){
                 broken=true;
-                addendum("now broken in pieces");
+                addendum(" now broken in pieces");
                 return "you broke "+name;
             }else{
                 return name+" is already broken";

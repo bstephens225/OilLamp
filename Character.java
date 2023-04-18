@@ -4,12 +4,15 @@
 
 import java.util.ArrayList;
 
+import javafx.geometry.Point3D;
+
 
 public class Character {
     //public ArrayList<String> inventory= new ArrayList<String>();
     boolean north = true;
     boolean south = true;
-    public Integer location=0;
+    public Location location;
+    private FloorPlan map;
     public Integer height=5;
     public Integer health=10;
     public ArrayList<Item> inventory= new ArrayList<Item>();
@@ -20,15 +23,20 @@ public class Character {
 
     }
     
-    public Integer getLoc(){
+    public Location getLoc(){
         return location;
     }
+    public String getLocName(){
+        return location.getName();
+    }
+
     public Integer getHeight(){
         return height;
     }
     public Integer getHealth(){
         return health;
     }
+
     public void printInventory(){
         System.out.println("Current Inventory:");
         for (int i=0;i<inventory.size();i++){
@@ -36,9 +44,11 @@ public class Character {
         }
         
     }
+
     public void printActions(){
         System.out.println(lastAction);
     }
+
     public void grab(Item item){
         inventory.add(item);
         
@@ -70,44 +80,33 @@ public class Character {
     }
 
     public void changeLocation(String direction){
-        if (direction=="north"){
-            location++;
-        }else if (direction =="south"){
-            location--;
-        }
-        if (location>=5){
-            north=false;
-        }else{
-            north=true;
-        }
-        if (location<=-5){
-            south=false;
-        }else{
-            south=true;
+        if (location.canExit(direction)){
+            int x=0;
+            int y=0;
+            int z=0;
+            if(direction=="north"){
+                x++;
+            }else if(direction=="south"){
+                x--;
+            }else if(direction=="east"){
+                y++;
+            }else if(direction=="west"){
+                y--;
+            }else if(direction=="up"){
+                z++;
+            }else if(direction=="down"){
+                z--;
+            }
+
+            Point3D newCoor=map.getCurrentCoor().add(x,y,z);
+            location=map.getARoom(newCoor);
         }
     }
 
     public boolean walk(String direction){
-        if (direction=="north"){
-            if (north==true){
-                changeLocation(direction);
-                
-                lastAction.add("walk");
-                lastAction.add(direction);
-                return true;
-            }else{
-                return false;
-            }
-        }else if (direction=="south"){
-            if (south==true){
-                changeLocation(direction);
-                
-                lastAction.add("walk");
-                lastAction.add(direction);
-                return true;
-            }else{
-                return false;
-            }
+        if (location.canExit(direction)){
+            changeLocation(direction);
+            return true;
         }else{
             throw new RuntimeException("that's not a direction in this world");
 
@@ -198,12 +197,15 @@ public class Character {
         Item apple=new Item("apple","a red apple",false,false,false);
         you.use(apple);
         you.grab(apple);
-        Item book=new Item("book","a blank notepab",true,true,true);
+        Item book=new Item("book","a blank notepad",false,true,true);
         you.grab(book);
         you.printInventory();
         you.drop(apple);
         //you.undo();
         you.printInventory();
+        apple.burnIt();
+        book.burnIt();
+        System.out.println(book.getDecription());
         
     }
     
