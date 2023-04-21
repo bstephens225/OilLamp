@@ -20,10 +20,14 @@ public class FloorPlan {
 
     public Location getARoom(int x, int y, int z){
         Point3D coordinates = new Point3D(x, y, z);
+        currentCoor=coordinates;
+        currentLoc=rooms.get(currentCoor);
         return rooms.get(coordinates);
     }
 
     public Location getARoom(Point3D p){
+        currentCoor=p;
+        currentLoc=rooms.get(currentCoor);
         return rooms.get(p);
     }
 

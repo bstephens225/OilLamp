@@ -8,7 +8,7 @@ public class Parser {
     boolean gameover=false;
     private  Item item;
     private  Location current;
-    static String command;
+    String command;
     ArrayList<Item> itemz;
     FloorPlan map;
     Character you;
@@ -17,8 +17,13 @@ public class Parser {
         this.you=you;
         map=you.getFloorPlan();
         current=you.getLoc();
-        System.out.println(current.getContents());
+        //System.out.println(current.getContents());
         itemz=current.getContents();
+        command=sc.nextLine();
+        
+    }
+
+    public String response(){
         //check command for items in inventory
         for (int i=0;i<you.getInventory().size();i++){
             if(command.contains(you.getInventory().get(i).getName())){
@@ -26,48 +31,44 @@ public class Parser {
             }
         }
         //check command for items in room
-        for (int i=0;i<itemz.size();i++){
+        for (int i=0;i<itemz.size()-1;i++){
             if(command.contains(itemz.get(i).getName())){
                 item=itemz.get(i);//item  is one mentioned in command
             }
         }
-        
-    }
-
-    public String response(){
         if (command.contains("walk")||command.contains("go")||command.contains("exit")||command.contains("move")){
             updateLocation();
-            return you.getLocName()+you.getLoc().getDecription();
-       }
-       if (command.contains("take")||command.contains("grab")){
-        addInvent();
-        return "you add "+item+" to your inventory";
-       }
-       if (command.contains("remove")||command.contains("drop")){
-        dropInvent();
-        return "you dropped "+item+" from your inventory";
-       }
-       if (command.contains("break")){
-        item.breakIt();
-        //put brokn item in room description
-        return "";
-       }
-       if (command.contains("burn")){
-        item.burnIt();
-        //put burnt item in room description
-        return "";
-       }
-       if (command.contains("open")){
-        item.openIt();
-        //put opened item in room description
-        return "";
-       }
-       if (command.contains("close")||command.contains("shut")){
-        item.closeIt();
-        //put closed item in room description
-        return "";
-       }
-       return "request not understood";
+            return you.getLoc().getName()+you.getLoc().getDecription();
+        }
+        if (command.contains("take")||command.contains("grab")){
+            addInvent();
+            return "you add "+item+" to your inventory";
+        }
+        if (command.contains("remove")||command.contains("drop")){
+            dropInvent();
+            return "you dropped "+item+" from your inventory";
+        }
+        if (command.contains("break")){
+            item.breakIt();
+            //put brokn item in room description
+            return "";
+        }
+        if (command.contains("burn")){
+            item.burnIt();
+            //put burnt item in room description
+            return "";
+        }
+        if (command.contains("open")){
+            item.openIt();
+            //put opened item in room description
+            return "";
+        }
+        if (command.contains("close")||command.contains("shut")){
+            item.closeIt();
+            //put closed item in room description
+            return "";
+        }
+        return "request not understood";
 
     }
 

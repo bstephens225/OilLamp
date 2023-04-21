@@ -55,7 +55,7 @@ public class Location {
     }
 
     public boolean canExit(String direction){
-        if(!exitKey.contains(direction)){
+        if(!exitKey.containsKey(direction)){
             throw new RuntimeErrorException(null, "not a real direction");
         }
         return exitKey.get(direction);

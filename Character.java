@@ -11,7 +11,7 @@ public class Character {
     //public ArrayList<String> inventory= new ArrayList<String>();
     boolean north = true;
     boolean south = true;
-    public Location location;
+    Location location;
     private FloorPlan map=new FloorPlan(1,0,0);
     public Integer height=5;
     public Integer health=10;
@@ -21,7 +21,7 @@ public class Character {
     
     public Character(FloorPlan map){
         this.map=map;
-        location=map.getCurrentRoom();
+        this.location=map.getCurrentRoom();
     }
     
     public Location getLoc(){
@@ -86,19 +86,19 @@ public class Character {
             int y=0;
             int z=0;
             if(direction=="north"){
-                x++;
-            }else if(direction=="south"){
-                x--;
-            }else if(direction=="east"){
                 y++;
-            }else if(direction=="west"){
+            }else if(direction=="south"){
                 y--;
+            }else if(direction=="east"){
+                x++;
+            }else if(direction=="west"){
+                x--;
             }else if(direction=="up"){
                 z++;
             }else if(direction=="down"){
                 z--;
             }
-
+            
             Point3D newCoor=map.getCurrentCoor().add(x,y,z);
             location=map.getARoom(newCoor);
         }
@@ -109,7 +109,7 @@ public class Character {
             changeLocation(direction);
             return true;
         }else{
-            throw new RuntimeException("that's not a direction in this world");
+            throw new RuntimeException("you cannot go that way");
 
         }
     }
@@ -167,7 +167,7 @@ public class Character {
 
 
     public static void main(String[] args) {
-
+        /** 
         Character you= new Character();
         Item apple=new Item("apple","a red apple",false,false,false);
         you.use(apple);
@@ -181,6 +181,7 @@ public class Character {
         apple.burnIt();
         book.burnIt();
         System.out.println(book.getDecription());
+        */
         
     }
     

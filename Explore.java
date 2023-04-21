@@ -40,13 +40,12 @@ public class Explore {
       map.addRoom(p2, diningRoom);
       Point3D p3=p.add(0,1,0);
       map.addRoom(p3, entryWay);
-      map.printRooms();
-      System.out.println(map.getCurrentRoom());
       Character you=new Character(map);
       //current.getContents();
       //map.getCurrentRoom().getDecription();
+      
+      System.out.println("what do you want to do?");
       Parser talk= new Parser(you);
-      System.out.println("what do you want to do");
       System.out.println(talk.response());
   }
 }
