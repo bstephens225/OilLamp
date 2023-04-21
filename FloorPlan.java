@@ -8,9 +8,12 @@ public class FloorPlan {
 
     public FloorPlan(int x, int y, int z){
         Point3D currentCoor = new Point3D(x, y, z);
-        currentLoc=rooms.get(currentCoor);
+        this.currentCoor=currentCoor;
+        
     }
-
+    public void printRooms(){
+        System.out.println(rooms);
+    }
     public void addRoom(Point3D p, Location room){
         rooms.put(p,room);
     }
@@ -25,6 +28,7 @@ public class FloorPlan {
     }
 
     public Location getCurrentRoom(){
+        currentLoc=rooms.get(currentCoor);
         return currentLoc;
     }
 

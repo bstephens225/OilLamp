@@ -12,29 +12,30 @@ public class Character {
     boolean north = true;
     boolean south = true;
     public Location location;
-    private FloorPlan map;
+    private FloorPlan map=new FloorPlan(1,0,0);
     public Integer height=5;
     public Integer health=10;
     public ArrayList<Item> inventory= new ArrayList<Item>();
 
     public ArrayList<String> lastAction= new ArrayList<String>();
     
-    public Character(){
-
+    public Character(FloorPlan map){
+        this.map=map;
+        location=map.getCurrentRoom();
     }
     
     public Location getLoc(){
         return location;
     }
+    public FloorPlan getFloorPlan(){
+        return map;
+    }
     public String getLocName(){
         return location.getName();
     }
 
-    public Integer getHeight(){
-        return height;
-    }
-    public Integer getHealth(){
-        return health;
+    public ArrayList<Item> getInventory(){
+        return inventory;
     }
 
     public void printInventory(){
@@ -126,24 +127,6 @@ public class Character {
         return height;
     }
 
-    public Number grow(){
-        height=height*2;
-        
-        lastAction.add("grow");
-        lastAction.add("null");
-        return height;
-    }
-
-    public void rest(){
-        if (health<10){
-            health++;
-            lastAction.add("rest");
-            lastAction.add("yay");
-        }
-        
-        lastAction.add("rest");
-        lastAction.add("nay");
-    }
 
     public void undo(){
         int last=lastAction.size()-1;
@@ -158,14 +141,6 @@ public class Character {
                 removeIt(last);
             }
 
-        }else if (lastAction.get(last-1)=="shrink"){
-            removeIt(last);
-            grow();
-            removeIt(last);
-        }else if(lastAction.get(last-1)=="grow"){
-            removeIt(last);
-            shrink();
-            removeIt(last);
         }else if(lastAction.get(last-1)=="grab"){
             //drop(lastAction.get(last));
             removeIt(last);

@@ -1,16 +1,24 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Parser {
-    boolean gameover=false;
-    Item item;
-    Location current;
-    Scanner sc = new Scanner(System.in);
-    String command=sc.nextLine();
-    Character you=new Character();
-    ArrayList<Item> itemz= current.getContents();
+import javafx.geometry.Point3D;
 
-    public Parser(){
+public class Parser {
+     Scanner sc = new Scanner(System.in);
+    boolean gameover=false;
+    private  Item item;
+    private  Location current;
+    static String command;
+    ArrayList<Item> itemz;
+    FloorPlan map;
+    Character you;
+    
+    public Parser(Character you){
+        this.you=you;
+        map=you.getFloorPlan();
+        current=you.getLoc();
+        System.out.println(current.getContents());
+        itemz=current.getContents();
         //check command for items in inventory
         for (int i=0;i<you.getInventory().size();i++){
             if(command.contains(you.getInventory().get(i).getName())){
@@ -23,6 +31,7 @@ public class Parser {
                 item=itemz.get(i);//item  is one mentioned in command
             }
         }
+        
     }
 
     public String response(){
@@ -78,6 +87,7 @@ public class Parser {
         }
         //change current location
     }
+
     public void addInvent(){
         for (int i=0;i<itemz.size();i++){
             if(command.contains(itemz.get(i).getName())){

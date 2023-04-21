@@ -43,7 +43,9 @@ public class Location {
     public String getName(){
         return name;
     }
-
+    public ArrayList<Item> getContents(){
+        return contents;
+    }
     public String getDecription(){
         return description;
     }
