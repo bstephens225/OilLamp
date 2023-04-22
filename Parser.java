@@ -13,13 +13,13 @@ public class Parser {
     FloorPlan map;
     Character you;
     
-    public Parser(Character you){
+    public Parser(Character you,String command){
         this.you=you;
         map=you.getFloorPlan();
         current=you.getLoc();
         //System.out.println(current.getContents());
         itemz=current.getContents();
-        command=sc.nextLine();
+        this.command=command;
         
     }
 
@@ -36,37 +36,39 @@ public class Parser {
                 item=itemz.get(i);//item  is one mentioned in command
             }
         }
+        //check command for action words
         if (command.contains("walk")||command.contains("go")||command.contains("exit")||command.contains("move")){
             updateLocation();
+            you.getLoc().getName();
             return you.getLoc().getName()+you.getLoc().getDecription();
         }
         if (command.contains("take")||command.contains("grab")){
             addInvent();
-            return "you add "+item+" to your inventory";
+            return "you add "+item.getName()+" to your inventory";
         }
         if (command.contains("remove")||command.contains("drop")){
             dropInvent();
-            return "you dropped "+item+" from your inventory";
+            return "you dropped "+item.getName()+" from your inventory";
         }
         if (command.contains("break")){
             item.breakIt();
             //put brokn item in room description
-            return "";
+            return item.getName()+" is broken";
         }
         if (command.contains("burn")){
             item.burnIt();
             //put burnt item in room description
-            return "";
+            return item.getName()+ " is burnt";
         }
         if (command.contains("open")){
             item.openIt();
             //put opened item in room description
-            return "";
+            return item.getName()+ " is opened";
         }
         if (command.contains("close")||command.contains("shut")){
             item.closeIt();
             //put closed item in room description
-            return "";
+            return item.getName()+" is closed";
         }
         return "request not understood";
 
@@ -90,7 +92,7 @@ public class Parser {
     }
 
     public void addInvent(){
-        for (int i=0;i<itemz.size();i++){
+        for (int i=0;i<itemz.size()-1;i++){
             if(command.contains(itemz.get(i).getName())){
                 you.grab(itemz.get(i));
                 item= itemz.get(i);
@@ -98,7 +100,7 @@ public class Parser {
         }
     }
     public void dropInvent(){
-        for (int i=0;i<you.getInventory().size();i++){
+        for (int i=0;i<you.getInventory().size()-1;i++){
             if(command.contains(you.getInventory().get(i).getName())){
                 you.drop(you.getInventory().get(i));
                 item=you.getInventory().get(i);
