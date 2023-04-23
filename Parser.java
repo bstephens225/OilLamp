@@ -24,6 +24,7 @@ public class Parser {
     }
 
     public String response(){
+        
         //check command for items in inventory
         for (int i=0;i<you.getInventory().size();i++){
             if(command.contains(you.getInventory().get(i).getName())){
@@ -31,7 +32,7 @@ public class Parser {
             }
         }
         //check command for items in room
-        for (int i=0;i<itemz.size()-1;i++){
+        for (int i=0;i<itemz.size();i++){
             if(command.contains(itemz.get(i).getName())){
                 item=itemz.get(i);//item  is one mentioned in command
             }
