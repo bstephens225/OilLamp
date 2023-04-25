@@ -12,7 +12,8 @@ public class Parser {
     ArrayList<Item> itemz;
     FloorPlan map;
     Character you;
-    boolean useItem=false;
+    boolean roomItem=false;
+    boolean yourItem=false;
     public Parser(Character you,String command){
         this.you=you;
         map=you.getFloorPlan();
@@ -49,7 +50,7 @@ public class Parser {
             //System.out.println(you.getInventory().get(i).getName());
             if(command.contains(you.getInventory().get(i).getName())){
                 item=you.getInventory().get(i);//item  is one mentioned in command
-                useItem=true;
+                yourItem=true;
             }
         }
         //check command for items in room
@@ -57,47 +58,49 @@ public class Parser {
             //System.out.println(itemz.get(i).getName());
             if(command.contains(itemz.get(i).getName())){
                 item=itemz.get(i);//item  is one mentioned in command
-                useItem=true;
+                roomItem=true;
             }
         }
         if (command.contains("take")||command.contains("grab")){
-                if(useItem){
+                if(roomItem){
                     you.grab(item);
+                    map.getCurrentRoom().removeItem(item);
                     return "you add "+item.getName()+" to your inventory";
                 }
             return "that item is not here";
             
         }
         if (command.contains("remove")||command.contains("drop")){
-            if(useItem){
+            if(yourItem){
                 you.drop(item);
+                map.getCurrentRoom().addItem(item);
                 return "you dropped "+item.getName();
             }
             return "that item is not in your inventory";
         }
         if (command.contains("break")){
-            if(useItem){
+            if(yourItem||roomItem){
                 item.breakIt();
                 //put brokn item in room description
                 return item.getName()+" is broken";
             }
         }
         if (command.contains("burn")){
-            if(useItem){
+            if(yourItem||roomItem){
                 item.burnIt();
                 //put burnt item in room description
                 return item.getName()+ " is burnt";
             }
         }
         if (command.contains("open")){
-            if(useItem){
+            if(yourItem||roomItem){
                 item.openIt();
                 //put opened item in room description
                 return item.getName()+ " is opened";
             }
         }
         if (command.contains("close")||command.contains("shut")){
-            if(useItem){
+            if(yourItem||roomItem){
                 item.closeIt();
                 //put closed item in room description
                 return item.getName()+" is closed";

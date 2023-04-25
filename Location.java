@@ -46,6 +46,13 @@ public class Location {
     public ArrayList<Item> getContents(){
         return contents;
     }
+
+    public void removeItem(Item item){
+        contents.remove(item);
+    }
+    public void addItem(Item item){
+        contents.add(item);
+    }
     public String getDecription(){
         return description;
     }
