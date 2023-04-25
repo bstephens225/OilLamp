@@ -1,7 +1,14 @@
+/** main
+ * constructs building
+ * runs commands
+@author bethany stephens
+*/
+
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import javafx.geometry.Point3D;
+
+
 public class Explore {
     public static void main(String[] arguments) {
       //living room
@@ -43,11 +50,9 @@ public class Explore {
       kitchenContents.add(cake);
       
       Location kitchen=new Location("Kitchen: ", "You are in the kitchen. The floor is cold tiling. There are two cabinets on the west wall and a refrigerator on the south wall. There is a brick fireplace on the east wall. There is a small door to the north.", kitchenContents,true,false,false,true,false,false);
-      
 
       //hall
       ArrayList<Item> hallContents=new ArrayList<>();
-      
       Location hall=new Location("Hall: ", "You are in an upstairs hallway. There are doors to the south and west. There are stairs leading down.", hallContents, false, true, true, false, false, true);
 
       //master bedroom
@@ -94,7 +99,7 @@ public class Explore {
       
       Location office=new Location("Office: ", "You are in an office. There is a large desk. On the desk there is a notebook with a dark red binding. The wall has a portrait of two girls. To the south is a wooden door.",officeContents,false,true,false,false,false,false);
 
-      //put ground floor together
+      //put house together
       FloorPlan map=new FloorPlan(1, 0, 0);
       Point3D p=new Point3D(0, 0, 0);
       Point3D p1=p.add(1,0,0);
@@ -114,15 +119,18 @@ public class Explore {
       Point3D p8=p.add(0,0,1);
       map.addRoom(p8, bathroom);//bathroom
       Point3D p9=p.add(0,2,1);
-      map.addRoom(p9, office);//bathroom
+      map.addRoom(p9, office);//office
 
+      //make player character
       Character you=new Character(map);
-      //current.getContents();
-      //map.getCurrentRoom().getDecription();
+
+      //start the game
+      System.out.println("You wake up in a Victorian era mansion. You don’t remember how you got there. It is dark except for a gas lamp which will not run out or turn off.");
       System.out.println(you.getLocName()+you.getLoc().getDecription());
       System.out.println("what do you want to do?");
       Scanner sc = new Scanner(System.in);
       
+      //take commands and respond
       for(int i=0;i<10;i++){
         String command=sc.nextLine();
         Parser talk= new Parser(you,command);

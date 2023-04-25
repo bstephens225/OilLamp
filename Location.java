@@ -10,12 +10,9 @@ has exits
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-import javax.management.RuntimeErrorException;
-
 public class Location {
 
     //possible directions
-    
     Hashtable<String,Boolean> exitKey=new Hashtable<>();
 
     //name
@@ -40,27 +37,52 @@ public class Location {
         exitKey.put("down",down);
     }
 
+    /** 
+     * @return String name of location
+    */
     public String getName(){
         return name;
     }
+
+    /** 
+     * @return ArrayList<Item> items in the location
+    */
     public ArrayList<Item> getContents(){
         return contents;
     }
 
+    /** 
+     * @param Item item to be removed
+    */
     public void removeItem(Item item){
         contents.remove(item);
     }
+
+    /** 
+     * @param Item item to be added
+    */
     public void addItem(Item item){
         contents.add(item);
     }
+
+    /** 
+     * @return String description of the location
+    */
     public String getDecription(){
         return description;
     }
-
+    /** 
+     * @return Hashtable<String,Boolean> possible exits of the room
+    */
     public Hashtable<String,Boolean> getExits(){
         return exitKey;
     }
 
+    /**
+     * @param String direction to test 
+     * @return boolean whether you can exit that way
+     * @throws RuntimeException if its not even a direction
+    */
     public boolean canExit(String direction){
         if(exitKey.containsKey(direction)){
             return exitKey.get(direction);

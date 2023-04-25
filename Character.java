@@ -3,41 +3,53 @@
 */
 
 import java.util.ArrayList;
-
 import javafx.geometry.Point3D;
 
 
 public class Character {
-    //public ArrayList<String> inventory= new ArrayList<String>();
-    boolean north = true;
-    boolean south = true;
+    //character has a location in a floor plan and an inventory
     Location location;
     private FloorPlan map=new FloorPlan(1,0,0);
-    public Integer height=5;
-    public Integer health=10;
     public ArrayList<Item> inventory= new ArrayList<Item>();
-
     public ArrayList<String> lastAction= new ArrayList<String>();
     
+    /** constructer
+    @param FloorPlan map of house
+    */
     public Character(FloorPlan map){
         this.map=map;
         this.location=map.getCurrentRoom();
     }
     
+    /** 
+     * @return Location current loc of character
+    */
     public Location getLoc(){
         return location;
     }
+    /** 
+     * @return FloorPlan map that character is in
+    */
     public FloorPlan getFloorPlan(){
         return map;
     }
+
+    /** 
+     * @return String name of current loc of character
+    */
     public String getLocName(){
         return location.getName();
     }
-
+    /** constructer
+     * @return ArrayList<Item> inventory of character
+    */
     public ArrayList<Item> getInventory(){
         return inventory;
     }
 
+    /** 
+     * print inventory of character
+    */
     public void printInventory(){
         System.out.println("Current Inventory:");
         for (int i=0;i<inventory.size();i++){
@@ -46,17 +58,26 @@ public class Character {
         
     }
 
+    /** 
+     * print actions of character
+    */
     public void printActions(){
         System.out.println(lastAction);
     }
 
+    /** 
+     * @param Item item to be picked up
+    */
     public void grab(Item item){
         inventory.add(item);
         
         lastAction.add("grab");
         lastAction.add(item.getName());
     }
-
+    
+    /** 
+     * @param Item item to be dropped
+    */
     public String drop(Item item){
         if(inventory.contains(item)==true){
             inventory.remove(item);
@@ -67,19 +88,26 @@ public class Character {
         }else{
             throw new RuntimeException("you arent carrying this item");
         }
-        
     }
 
+    /** 
+     * @param Item item to be examined
+    */
     public void examine(Item item){
         System.out.println("this item is completely normal");
     }
 
+    /** 
+     * @param Item item to be used
+    */
     public void use(Item item){
         lastAction.add("use");
         lastAction.add(item.getName());
-        
     }
 
+    /** 
+     * @param String direction to go
+    */
     public void changeLocation(String direction){
         if (location.canExit(direction)){
             int x=0;
@@ -98,12 +126,14 @@ public class Character {
             }else if(direction=="down"){
                 z--;
             }
-            
             Point3D newCoor=map.getCurrentCoor().add(x,y,z);
             location=map.getARoom(newCoor);
         }
     }
-
+    /** 
+     * @param String direction to walk
+     * @thow RuntimeException if you can't walk that way
+    */
     public void walk(String direction){
         if (location.canExit(direction)){
             changeLocation(direction);
@@ -112,6 +142,7 @@ public class Character {
         }
     }
 
+    //undo last action
     public void undo(){
         int last=lastAction.size()-1;
         if (lastAction.get(last-1)=="walk"){
@@ -135,15 +166,10 @@ public class Character {
             removeIt(last);
         }else if (lastAction.get(last-1)=="use"){
             removeIt(last);
-        }else if (lastAction.get(last-1)=="rest"){
-            if(lastAction.get(last-1)=="yay"){
-                health--;
-            }
-            removeIt(last);
         }
 
     }
-
+    //helps undo
     private void removeIt(int last){
         lastAction.remove(last);
         lastAction.remove(last-1);
