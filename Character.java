@@ -104,29 +104,13 @@ public class Character {
         }
     }
 
-    public boolean walk(String direction){
+    public void walk(String direction){
         if (location.canExit(direction)){
             changeLocation(direction);
-            return true;
         }else{
             throw new RuntimeException("you cannot go that way");
-
         }
     }
-
-    public boolean fly(int x, int y){
-        //System.out.println("you can't fly silly! you're not a bird");
-        return false;
-    }
-
-    public Number shrink(){
-        height=height/2;
-        
-        lastAction.add("shrink");
-        lastAction.add("null");
-        return height;
-    }
-
 
     public void undo(){
         int last=lastAction.size()-1;

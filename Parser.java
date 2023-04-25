@@ -12,7 +12,7 @@ public class Parser {
     ArrayList<Item> itemz;
     FloorPlan map;
     Character you;
-    
+    boolean useItem=false;
     public Parser(Character you,String command){
         this.you=you;
         map=you.getFloorPlan();
@@ -23,90 +23,132 @@ public class Parser {
         
     }
 
+    public void printInventory(){
+        System.out.println(you.inventory);
+    }
     public String response(){
-        
+        //check command for action words
+        if (command.contains("walk")||command.contains("go")||command.contains("exit")||command.contains("move")){
+            try{
+                updateLocation();
+                return you.getLoc().getName()+you.getLoc().getDecription();
+            }catch(Exception e){
+                return(e.getMessage()); 
+            }
+            //you.getLoc().getName();
+        }
+        if (command.contains("print")&&command.contains("inventory")){
+            printInventory();
+            
+            return "printed";
+        }
+
+        //use/pick up/put down item
         //check command for items in inventory
         for (int i=0;i<you.getInventory().size();i++){
+            //System.out.println(you.getInventory().get(i).getName());
             if(command.contains(you.getInventory().get(i).getName())){
                 item=you.getInventory().get(i);//item  is one mentioned in command
+                useItem=true;
             }
         }
         //check command for items in room
         for (int i=0;i<itemz.size();i++){
+            //System.out.println(itemz.get(i).getName());
             if(command.contains(itemz.get(i).getName())){
                 item=itemz.get(i);//item  is one mentioned in command
+                useItem=true;
             }
         }
-        //check command for action words
-        if (command.contains("walk")||command.contains("go")||command.contains("exit")||command.contains("move")){
-            updateLocation();
-            you.getLoc().getName();
-            return you.getLoc().getName()+you.getLoc().getDecription();
-        }
         if (command.contains("take")||command.contains("grab")){
-            addInvent();
-            return "you add "+item.getName()+" to your inventory";
+                if(useItem){
+                    you.grab(item);
+                    return "you add "+item.getName()+" to your inventory";
+                }
+            return "that item is not here";
+            
         }
         if (command.contains("remove")||command.contains("drop")){
-            dropInvent();
-            return "you dropped "+item.getName()+" from your inventory";
+            if(useItem){
+                you.drop(item);
+                return "you dropped "+item.getName();
+            }
+            return "that item is not in your inventory";
         }
         if (command.contains("break")){
-            item.breakIt();
-            //put brokn item in room description
-            return item.getName()+" is broken";
+            if(useItem){
+                item.breakIt();
+                //put brokn item in room description
+                return item.getName()+" is broken";
+            }
         }
         if (command.contains("burn")){
-            item.burnIt();
-            //put burnt item in room description
-            return item.getName()+ " is burnt";
+            if(useItem){
+                item.burnIt();
+                //put burnt item in room description
+                return item.getName()+ " is burnt";
+            }
         }
         if (command.contains("open")){
-            item.openIt();
-            //put opened item in room description
-            return item.getName()+ " is opened";
+            if(useItem){
+                item.openIt();
+                //put opened item in room description
+                return item.getName()+ " is opened";
+            }
         }
         if (command.contains("close")||command.contains("shut")){
-            item.closeIt();
-            //put closed item in room description
-            return item.getName()+" is closed";
+            if(useItem){
+                item.closeIt();
+                //put closed item in room description
+                return item.getName()+" is closed";
+            }
         }
         return "request not understood";
 
     }
 
     public void updateLocation(){
+        
         if(command.contains("north")){
-            you.walk("north");
+            try{
+                you.walk("north");
+            }catch(Exception e){
+                System.err.println(e.getMessage()); 
+            }
         }else if(command.contains("south")){
-            you.walk("south");
+            try{
+                you.walk("south");
+            }catch(Exception e){
+                System.err.println(e.getMessage()); 
+            }
         }else if(command.contains("east")){
-            you.walk("east");
+            try{
+                you.walk("east");
+            }catch(Exception e){
+                System.err.println(e.getMessage()); 
+            }
         }else if(command.contains("west")){
-            you.walk("west");
+            try{
+                you.walk("west");
+            }catch(Exception e){
+                System.err.println(e.getMessage()); 
+            }
         }else if(command.contains("up")){
-            you.walk("up");
+            try{
+                you.walk("up");
+            }catch(Exception e){
+                System.err.println(e.getMessage()); 
+            }
         }else if(command.contains("down")){
-            you.walk("down");
+            try{
+                you.walk("down");
+            }catch(Exception e){
+                System.err.println(e.getMessage()); 
+            }
+        }else{
+            throw new RuntimeException("that is not a direction");
         }
         //change current location
-    }
-
-    public void addInvent(){
-        for (int i=0;i<itemz.size()-1;i++){
-            if(command.contains(itemz.get(i).getName())){
-                you.grab(itemz.get(i));
-                item= itemz.get(i);
-            }
-        }
-    }
-    public void dropInvent(){
-        for (int i=0;i<you.getInventory().size()-1;i++){
-            if(command.contains(you.getInventory().get(i).getName())){
-                you.drop(you.getInventory().get(i));
-                item=you.getInventory().get(i);
-            }
-        }
     }
 
     public String describe(){
