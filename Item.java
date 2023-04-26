@@ -40,18 +40,19 @@ public class Item {
         description=description+s;
     }
 
-    public String burnIt(){
+    public void burnIt(){
         if (flammable==true){
             if(burnt==false){
                 burnt=true;
-                addendum(" now burnt");
-                return "you burnt "+name;
+                addendum(", now burnt");
             }else{
-                return name+" is already burnt";
+                throw new RuntimeException (name+" is already burnt");
             }
             
+        }else{
+            throw new RuntimeException ("you cannot burn "+name);
         }
-        return "you cannot burn "+name;
+        
     }
 
     public String breakIt(){

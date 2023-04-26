@@ -106,10 +106,15 @@ public class Parser {
         }
         //burn an item
         if (command.contains("burn")){
+            
             if(yourItem||roomItem){
-                item.burnIt();
-                //put burnt item in room description
-                return item.getName()+ " is burnt";
+                try{item.burnIt();
+                    //put burnt item in room description
+                    return item.getName()+ " is burnt";
+                }catch(Exception e){
+                    return(e.getMessage());
+                }
+                
             }
         }
         //open an item
