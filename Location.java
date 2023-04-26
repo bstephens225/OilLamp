@@ -20,7 +20,7 @@ public class Location {
 
     //description
     String description;
-
+    String roomContents="";
     //objects in the room
     public ArrayList<Item> contents= new ArrayList<Item>();
 
@@ -28,6 +28,21 @@ public class Location {
         this.name=name;
         this.description=description;
         this.contents=contents;
+        
+        if(contents.size()>0){
+            roomContents="There is "+contents.get(0).getDecription();
+            for (int i=1;i<contents.size()-1;i++){
+                roomContents+=", ";
+                roomContents+=contents.get(i).getDecription();
+            }
+            if(contents.size()>1){
+                roomContents+=", and ";
+                roomContents+=contents.get(contents.size()-1).getDecription();
+            }
+            roomContents+=".";
+            
+        }
+        
         
         exitKey.put("north",north);
         exitKey.put("south",south);
@@ -69,7 +84,19 @@ public class Location {
      * @return String description of the location
     */
     public String getDecription(){
-        return description;
+        if(contents.size()>0){
+            roomContents=" There is "+contents.get(0).getDecription();
+            for (int i=1;i<contents.size()-1;i++){
+                roomContents+=", ";
+                roomContents+=contents.get(i).getDecription();
+            }
+            if(contents.size()>1){
+                roomContents+=", and ";
+                roomContents+=contents.get(contents.size()-1).getDecription();
+            }
+            roomContents+=".";
+        }
+        return description+roomContents;
     }
     /** 
      * @return Hashtable<String,Boolean> possible exits of the room

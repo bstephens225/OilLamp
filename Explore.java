@@ -14,7 +14,7 @@ public class Explore {
       //living room
       Item sofa=new Item("sofa","an old green velvet sofa", false ,false, false);
       Item chair=new Item("green chair","an old green velvet chair which matches the sofa", false, false, false);
-      Item coffeeTable=new Item("coffee table","a short wooden table",false, false, true);
+      Item coffeeTable=new Item("coffee table","a short wooden coffee table",false, false, true);
       ArrayList<Item> livingRoomContents=new ArrayList<>();
           livingRoomContents.add(sofa);
           livingRoomContents.add(chair);
@@ -41,7 +41,7 @@ public class Explore {
       Location entryWay=new Location("Entryway: ", "You are in the foyer. Two pairs of boots sit next to the door. There is a grand staircase. There are doorways to the west and south.", entrywayContents,false,true,true,false,true,false);
       
       //kitchen room
-      Item fridge=new Item("fridge","a refrigerator", true ,false, false);
+      Item fridge=new Item("refrigerator","a refrigerator", true ,false, false);
       Item cabinet=new Item("cabinet","a short wooden cabinet painted blue", true, false, false);
       Item cake=new Item("cake","a tasty piece of chocolate cake",false, true, true);
       ArrayList<Item> kitchenContents=new ArrayList<>();
@@ -58,7 +58,7 @@ public class Explore {
       //master bedroom
       Item clock=new Item("clock","a tall wooden grandfather clock", true ,false, false);
       Item box=new Item("box","a small brass box", true, false, false);
-      Item stand=new Item("stand","a curved black nightstand",false, true, true);
+      Item stand=new Item("nightstand","a curved black nightstand",false, true, true);
       ArrayList<Item> masterContents=new ArrayList<>();
       masterContents.add(clock);
       masterContents.add(box);
@@ -68,7 +68,7 @@ public class Explore {
       
       //kids bedroom
       Item doll=new Item("doll","a cloth doll with yarn hair", true ,false, false);
-      Item horse=new Item("horse","a wooden rocking horse", true, false, false);
+      Item horse=new Item("rocking horse","a wooden rocking horse", true, false, false);
       Item twinBed=new Item("twin bed","two twin beds with light blue sheets",false, true, true);
       ArrayList<Item> kidsContents=new ArrayList<>();
       kidsContents.add(doll);
@@ -78,9 +78,9 @@ public class Explore {
       Location kidBedroom=new Location("Children's Bedroom: ", "You are in a bedroom with two twin beds. There is a rocking horse in the corner and a doll on the floor. There are doors to the north and west.",kidsContents,true,false,true,false,false,false);
 
       //bathroom
-      Item sink=new Item("sink","a counter and a metal basin", true ,false, false);
+      Item sink=new Item("basin","a counter and a metal basin", true ,false, false);
       Item tub=new Item("tub","a large claw-footed ceramic tub", true, false, false);
-      Item perfume=new Item("perfume","a medium bottle of rosy smelling liquid",false, true, true);
+      Item perfume=new Item("perfume","a medium bottle of rosy smelling perfume",false, true, true);
       ArrayList<Item> bathContents=new ArrayList<>();
       bathContents.add(sink);
       bathContents.add(tub);
@@ -89,9 +89,9 @@ public class Explore {
       Location bathroom=new Location("Bathroom: ", "You are in a small bathroom. There are doors to the north and east. On one side there is a counter with a basin, and on the other is a tub. There is a bottle of perfume on the sink counter.",bathContents,true,false,false,true,false,false);
       
       //office
-      Item desk=new Item("sink","a counter and a metal basin", true ,false, false);
-      Item locket=new Item("tub","a large claw-footed ceramic tub", true, false, false);
-      Item notebook=new Item("perfume","a medium bottle of rosy smelling liquid",false, true, true);
+      Item desk=new Item("desk","a long wooden desk", true ,false, false);
+      Item locket=new Item("locket","a small gold locket containing a picture of a peaceful woman", true, false, false);
+      Item notebook=new Item("notebook","a notebook with a dark red binding",false, true, true);
       ArrayList<Item> officeContents=new ArrayList<>();
       officeContents.add(desk);
       officeContents.add(locket);
