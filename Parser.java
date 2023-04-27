@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Parser {
-     Scanner sc = new Scanner(System.in);
+     //Scanner sc = new Scanner(System.in);
     boolean gameover=false;
     private  Item item;
     private  Location current;
