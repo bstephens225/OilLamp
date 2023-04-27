@@ -18,6 +18,7 @@ public class Item {
     boolean burnt=false;
     boolean broken=false;
     boolean open=false;
+    Item contents=null;
 
     public Item(String name,String description, boolean openable, boolean breakable, boolean flammable){
         this.name=name;
@@ -26,6 +27,15 @@ public class Item {
         this.breakable=breakable;
         this.openable=openable;
 
+    }
+
+    public Item(String name,String description, Item contents,boolean openable, boolean breakable, boolean flammable){
+        this.name=name;
+        this.description=description;
+        this.flammable=flammable;
+        this.breakable=breakable;
+        this.openable=openable;
+        this.contents=contents;
     }
 
     public String getName(){
@@ -73,6 +83,8 @@ public class Item {
         if (openable==true){
             if(open==false){
                 open=true;
+                //return contents and delete contents
+                //throw no contents error
                 return "you opened "+name;
             }else{
                 return name+" is already opened";

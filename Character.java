@@ -11,7 +11,6 @@ public class Character {
     Location location;
     private FloorPlan map=new FloorPlan(1,0,0);
     public ArrayList<Item> inventory= new ArrayList<Item>();
-    public ArrayList<String> lastAction= new ArrayList<String>();
     
     /** constructer
     @param FloorPlan map of house
@@ -59,13 +58,6 @@ public class Character {
     }
 
     /** 
-     * print actions of character
-    */
-    public void printActions(){
-        System.out.println(lastAction);
-    }
-
-    /** 
      * @param Item item to be picked up
     */
     public void grab(Item item){
@@ -88,13 +80,6 @@ public class Character {
         }else{
             throw new RuntimeException("you arent carrying this item");
         }
-    }
-
-    /** 
-     * @param Item item to be examined
-    */
-    public void examine(Item item){
-        System.out.println("this item is completely normal");
     }
 
     /** 
@@ -142,38 +127,7 @@ public class Character {
         }
     }
 
-    //undo last action
-    public void undo(){
-        int last=lastAction.size()-1;
-        if (lastAction.get(last-1)=="walk"){
-            if (lastAction.get(last)=="north"){
-                removeIt(last);
-                walk("south");
-                removeIt(last);
-            }else{
-                removeIt(last);
-                walk("north");
-                removeIt(last);
-            }
 
-        }else if(lastAction.get(last-1)=="grab"){
-            //drop(lastAction.get(last));
-            removeIt(last);
-            removeIt(last);
-        }else if (lastAction.get(last-1)=="drop"){
-            //grab(lastAction.get(last));
-            removeIt(last);
-            removeIt(last);
-        }else if (lastAction.get(last-1)=="use"){
-            removeIt(last);
-        }
-
-    }
-    //helps undo
-    private void removeIt(int last){
-        lastAction.remove(last);
-        lastAction.remove(last-1);
-    }
 
 
     public static void main(String[] args) {
