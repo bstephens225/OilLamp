@@ -1,3 +1,5 @@
+import javax.management.RuntimeErrorException;
+
 /** Item class
 @author bethany stephens
 */
@@ -65,45 +67,57 @@ public class Item {
         
     }
 
-    public String breakIt(){
+    public void breakIt(){
         if (breakable==true){
             if(broken==false){
                 broken=true;
-                addendum(" now broken in pieces");
-                return "you broke "+name;
+                addendum(", now broken");
             }else{
-                return name+" is already broken";
+                throw new RuntimeException (name+" is already broken");
             }
             
+        }else{
+            throw new RuntimeException ("you cannot break "+name);
         }
-        return "you cannot break "+name;
     }
 
-    public String openIt(){
-        if (openable==true){
+    public Item openIt(){
+         if (openable==true){
             if(open==false){
                 open=true;
-                //return contents and delete contents
-                //throw no contents error
-                return "you opened "+name;
+                addendum(", now opened");
+                if (contents!=null){
+                    return contents;
+                }else{
+                    throw new RuntimeException(name+"is open and empty");
+                }
+                
             }else{
-                return name+" is already opened";
+                throw new RuntimeException (name+" is already open");
             }
             
+        }else{
+            throw new RuntimeException ("you cannot open "+name);
         }
-        return "you cannot open "+name;
     }
 
-    public String closeIt(){
+    public void closeIt(){
         if (openable==true){
             if(open==true){
                 open=false;
-                return "you closed "+name;
+                addendum(", now shut");
             }else{
-                return name+" is already closed";
+                throw new RuntimeException (name+" is already shut");
             }
             
+        }else{
+            throw new RuntimeException ("you cannot close "+name);
         }
-        return "you cannot close "+name;
+    }
+
+    public void eatIt(){
+        if (name=="cake"){
+            
+        }
     }
 }

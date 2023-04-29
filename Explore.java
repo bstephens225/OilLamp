@@ -41,13 +41,13 @@ public class Explore {
       Location entryWay=new Location("Entryway: ", "You are in the foyer. Two pairs of boots sit next to the door. There is a grand staircase. There are doorways to the west and south.", entrywayContents,false,true,true,false,true,false);
       
       //kitchen room
-      Item fridge=new Item("refrigerator","a refrigerator", true ,false, false);
-      Item cabinet=new Item("cabinet","a short wooden cabinet painted blue", true, false, false);
       Item cake=new Item("cake","a tasty piece of chocolate cake",false, true, true);
+      Item fridge=new Item("refrigerator","a refrigerator", cake, true ,false, false);
+      Item cabinet=new Item("cabinet","a short wooden cabinet painted blue", true, false, false);
       ArrayList<Item> kitchenContents=new ArrayList<>();
       kitchenContents.add(fridge);
       kitchenContents.add(cabinet);
-      kitchenContents.add(cake);
+      //kitchenContents.add(cake);
       
       Location kitchen=new Location("Kitchen: ", "You are in the kitchen. The floor is cold tiling. There are two cabinets on the west wall and a refrigerator on the south wall. There is a brick fireplace on the east wall. There is a small door to the north.", kitchenContents,true,false,false,true,false,false);
 

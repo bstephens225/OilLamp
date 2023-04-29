@@ -62,9 +62,6 @@ public class Character {
     */
     public void grab(Item item){
         inventory.add(item);
-        
-        lastAction.add("grab");
-        lastAction.add(item.getName());
     }
     
     /** 
@@ -73,12 +70,9 @@ public class Character {
     public String drop(Item item){
         if(inventory.contains(item)==true){
             inventory.remove(item);
-            
-            lastAction.add("drop");
-            lastAction.add(item.getName());
             return item+"dropped";
         }else{
-            throw new RuntimeException("you arent carrying this item");
+            throw new RuntimeException("you aren't carrying this item");
         }
     }
 
@@ -86,8 +80,7 @@ public class Character {
      * @param Item item to be used
     */
     public void use(Item item){
-        lastAction.add("use");
-        lastAction.add(item.getName());
+
     }
 
     /** 

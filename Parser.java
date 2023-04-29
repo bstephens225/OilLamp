@@ -99,9 +99,12 @@ public class Parser {
         //break an item
         if (command.contains("break")){
             if(yourItem||roomItem){
-                item.breakIt();
-                //put brokn item in room description
-                return item.getName()+" is broken";
+                try{item.breakIt();
+                    //put broken item in room description
+                    return item.getName()+ " is broken";
+                }catch(Exception e){
+                    return(e.getMessage());
+                }
             }
         }
         //burn an item
@@ -120,17 +123,26 @@ public class Parser {
         //open an item
         if (command.contains("open")){
             if(yourItem||roomItem){
-                item.openIt();
+                try{
+                    Item newItem=item.openIt();
+                    you.grab(newItem);
+                    return item.getName()+ " is opened, you found "+newItem.getName();
+                }catch(Exception e){
+                    return(e.getMessage());
+                }
                 //put opened item in room description
-                return item.getName()+ " is opened";
+                
             }
         }
         //close an item
         if (command.contains("close")||command.contains("shut")){
             if(yourItem||roomItem){
-                item.closeIt();
-                //put closed item in room description
-                return item.getName()+" is closed";
+                try{item.closeIt();
+                    //put burnt item in room description
+                    return item.getName()+ " is closed";
+                }catch(Exception e){
+                    return(e.getMessage());
+                }
             }
         }
         //return for no action words found
