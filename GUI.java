@@ -9,6 +9,9 @@ public class GUI{
     JTextField textField;
     JTextArea paragraph;
     String response;
+    boolean gameover=false;
+
+    Character you;
     public GUI() {
         JFrame frame = new JFrame("LampLight");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,12 +52,12 @@ public class GUI{
 
         textField.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent a) {
                 //save text and clear text field
                 String command = textField.getText();
                 textField.setText("");
-                
-                paragraph.setText(command+"\n\n"+response);
+                //Explore.receiveText(command);
+                paragraph.setText(command+"\n\n"+"response");
                 dimBrightness();
             }
         });
@@ -70,13 +73,15 @@ public class GUI{
             textField.setCaretColor(darker);
             paragraph.setForeground(darker);
             textField.setForeground(darker);
+        }else{
+            gameover=true;
         }
         
     //light(brightness,brightness,brightness);
     }
     
     public static void main(String[] args) {
-        String resp="ohh";
+        
         new GUI();
     }
     
