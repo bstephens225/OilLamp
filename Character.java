@@ -11,15 +11,19 @@ public class Character {
     Location location;
     private FloorPlan map=new FloorPlan(1,0,0);
     public ArrayList<Item> inventory= new ArrayList<Item>();
-    
+    Lamp lamp=new Lamp();
     /** constructer
     @param FloorPlan map of house
     */
     public Character(FloorPlan map){
         this.map=map;
         this.location=map.getCurrentRoom();
+        
+        grab(lamp);
     }
-    
+    public void dimLamp(){
+        lamp.dim();
+    }
     /** 
      * @return Location current loc of character
     */
