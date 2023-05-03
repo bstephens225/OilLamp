@@ -20,6 +20,7 @@ public class Item {
     boolean burnt=false;
     boolean broken=false;
     boolean open=false;
+    boolean shut=false;
     Item contents=null;
 
     public Item(String name,String description, boolean openable, boolean breakable, boolean flammable){
@@ -45,6 +46,11 @@ public class Item {
     }
 
     public String getDecription(){
+        if (open==true){
+            return description+ ", now open";
+        }else if (shut==true){
+            return description+", now shut";
+        }
         return description;
     }
 
@@ -85,11 +91,12 @@ public class Item {
          if (openable==true){
             if(open==false){
                 open=true;
-                addendum(", now opened");
+                //addendum(", now opened");
+                shut=false;
                 if (contents!=null){
                     return contents;
                 }else{
-                    throw new RuntimeException(name+"is open and empty");
+                    throw new RuntimeException(name+" is open and empty");
                 }
                 
             }else{
@@ -105,7 +112,7 @@ public class Item {
         if (openable==true){
             if(open==true){
                 open=false;
-                addendum(", now shut");
+                shut=true;
             }else{
                 throw new RuntimeException (name+" is already shut");
             }
@@ -115,9 +122,5 @@ public class Item {
         }
     }
 
-    public void eatIt(){
-        if (name=="cake"){
-            
-        }
-    }
+    
 }

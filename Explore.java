@@ -10,7 +10,9 @@ import javafx.geometry.Point3D;
 
 
 public class Explore {
+    
     public static void main(String[] arguments) {
+      boolean gameover=false;
       //living room
       Item sofa=new Item("sofa","an old green velvet sofa", false ,false, false);
       Item chair=new Item("green chair","an old green velvet chair which matches the sofa", false, false, false);
@@ -20,7 +22,7 @@ public class Explore {
           livingRoomContents.add(chair);
           livingRoomContents.add(coffeeTable);
       
-      Location livingRoom=new Location("Living Room: ", "You are in a room with faded, peeling wallpaper. There is a green sofa, and a matching chair around a small wooden table in the center of the room. A large woven rug is underfoot. On the north wall is a doorway. On the south wall is an empty brick fireplace.", livingRoomContents, true, false, false, false, false, false);
+      Location livingRoom=new Location("Living Room: ", "You are in a room with faded, peeling wallpaper. On the north wall is a doorway. On the south wall is an empty brick fireplace.", livingRoomContents, true, false, false, false, false, false);
 
       //dining room
       Item diningTable=new Item("table","a large rectangular table", false ,false, false);
@@ -31,14 +33,14 @@ public class Explore {
           diningRoomContents.add(woodChair);
           diningRoomContents.add(plate);
       
-      Location diningRoom=new Location("Dining Room: ", "You are in a dining room. A long rectangular table stretches down the middle of the room. Nine chairs surround it and nine places are set. There is a curtain on the south wall. To the east is a doorway.", diningRoomContents,false,true,false, true, false, false);
+      Location diningRoom=new Location("Dining Room: ", "You are in a dining room. There is a curtain hiding a door to the south. To the east is a doorway.", diningRoomContents,false,true,false, true, false, false);
       
       //entryway room
       Item boots=new Item("boots","a pair of yellow wellingtons", false ,false, false);
       ArrayList<Item> entrywayContents=new ArrayList<>();
           entrywayContents.add(boots);
       
-      Location entryWay=new Location("Entryway: ", "You are in the foyer. Two pairs of boots sit next to the door. There is a grand staircase. There are doorways to the west and south.", entrywayContents,false,true,true,false,true,false);
+      Location entryWay=new Location("Entryway: ", "You are in the foyer. There is a grand staircase. There are doorways to the west and south.", entrywayContents,false,true,true,false,true,false);
       
       //kitchen room
       Item cake=new Item("cake","a tasty piece of chocolate cake",false, true, true);
@@ -64,40 +66,40 @@ public class Explore {
       masterContents.add(box);
       masterContents.add(stand);
       
-      Location masterBed=new Location("Master Bedroom: ", "You are in a bedroom with one large bed. There are wooden doors to the north, south, and east. An old grandfather clock ticks slowly. A night stand next to the bed has a small box on top of it.", masterContents,true,true,false,true,false,false);
+      Location masterBed=new Location("Master Bedroom: ", "You are in a bedroom with one large bed. There are wooden doors to the north, south, and east.", masterContents,true,true,false,true,false,false);
       
       //kids bedroom
-      Item doll=new Item("doll","a cloth doll with yarn hair", true ,false, false);
-      Item horse=new Item("rocking horse","a wooden rocking horse", true, false, false);
+      Item doll=new Item("doll","a cloth doll with yarn hair", false ,true, true);
+      Item horse=new Item("rocking horse","a wooden rocking horse", false, false, true);
       Item twinBed=new Item("twin bed","two twin beds with light blue sheets",false, true, true);
       ArrayList<Item> kidsContents=new ArrayList<>();
       kidsContents.add(doll);
       kidsContents.add(horse);
       kidsContents.add(twinBed);
       
-      Location kidBedroom=new Location("Children's Bedroom: ", "You are in a bedroom with two twin beds. There is a rocking horse in the corner and a doll on the floor. There are doors to the north and west.",kidsContents,true,false,true,false,false,false);
+      Location kidBedroom=new Location("Children's Bedroom: ", "You are in a bedroom with two twin beds. There are doors to the north and west.",kidsContents,true,false,true,false,false,false);
 
       //bathroom
-      Item sink=new Item("basin","a counter and a metal basin", true ,false, false);
-      Item tub=new Item("tub","a large claw-footed ceramic tub", true, false, false);
+      Item sink=new Item("basin","a counter and a metal basin", false ,false, false);
+      Item tub=new Item("tub","a large claw-footed ceramic tub", false, false, false);
       Item perfume=new Item("perfume","a medium bottle of rosy smelling perfume",false, true, true);
       ArrayList<Item> bathContents=new ArrayList<>();
       bathContents.add(sink);
       bathContents.add(tub);
       bathContents.add(perfume);
       
-      Location bathroom=new Location("Bathroom: ", "You are in a small bathroom. There are doors to the north and east. On one side there is a counter with a basin, and on the other is a tub. There is a bottle of perfume on the sink counter.",bathContents,true,false,false,true,false,false);
+      Location bathroom=new Location("Bathroom: ", "You are in a small bathroom. There are doors to the north and east.",bathContents,true,false,false,true,false,false);
       
       //office
-      Item desk=new Item("desk","a long wooden desk", true ,false, false);
       Item locket=new Item("locket","a small gold locket containing a picture of a peaceful woman", true, false, false);
+      Item desk=new Item("desk","a long wooden desk",locket, true ,false, false);
       Item notebook=new Item("notebook","a notebook with a dark red binding",false, true, true);
       ArrayList<Item> officeContents=new ArrayList<>();
       officeContents.add(desk);
-      officeContents.add(locket);
+      //officeContents.add(locket);
       officeContents.add(notebook);
       
-      Location office=new Location("Office: ", "You are in an office. There is a large desk. On the desk there is a notebook with a dark red binding. The wall has a portrait of two girls. To the south is a wooden door.",officeContents,false,true,false,false,false,false);
+      Location office=new Location("Office: ", "You are in an office. The wall has a portrait of two girls. To the south is a wooden door.",officeContents,false,true,false,false,false,false);
 
       //put house together
       FloorPlan map=new FloorPlan(1, 0, 0);
@@ -123,19 +125,10 @@ public class Explore {
 
       //make player character
       Character you=new Character(map);
-
-      //start the game
-      System.out.println("You wake up in a Victorian era mansion. You don’t remember how you got there. It is dark except for a gas lamp which will not run out or turn off.");
-      System.out.println(you.getLocName()+you.getLoc().getDecription());
-      System.out.println("what do you want to do?");
-      Scanner sc = new Scanner(System.in);
       
-      //take commands and respond
-      for(int i=0;i<10;i++){
-        String command=sc.nextLine();
-        Parser talk= new Parser(you,command);
-        System.out.println(talk.response());
-      }
+
+     
+      new GUI(you);
       
   }
 }

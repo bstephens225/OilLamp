@@ -35,13 +35,28 @@ public class Parser {
 
     /** prints inventory
     */
-    public void printInventory(){
-        System.out.println("---INVENTORY---");
+    public String printInventory(){
+        String invent= "---INVENTORY---";
         for (int i=0;i<you.getInventory().size();i++){
-            System.out.println(you.getInventory().get(i).getName()+": "+you.getInventory().get(i).getDecription());
+            invent+="\n"+you.getInventory().get(i).getName()+": "+you.getInventory().get(i).getDecription();
         }
+        return invent;
     }
 
+    /**glitch */
+    public void glitch(){
+        double random=Math.random();
+        if(random<.25){
+            you.dimLamp();
+        }else if(random<.5){
+            //add item to inventory
+        }else if(random<.75){
+            //add item to room
+        }else{
+            //
+        }
+
+    }
     /** looks for action words and items in the command
      * @return String response to the request
     */
@@ -57,8 +72,7 @@ public class Parser {
         }
         //check command for printing inventory
         if (command.contains("print")&&command.contains("inventory")){
-            printInventory();
-            return "---------------";
+            return printInventory()+"\n---------------";
         }
 
         //check command for items in inventory
@@ -90,19 +104,34 @@ public class Parser {
         //if command says drop and an item in inventory, drop that item and add it to current room's contents
         if (command.contains("remove")||command.contains("drop")){
             if(yourItem){
+                if(item.getName()=="lamp"){
+                    throw new RuntimeException("gameover");
+                }
                 you.drop(item);
                 map.getCurrentRoom().addItem(item);
                 return "you dropped "+item.getName();
             }
             return "that item is not in your inventory";
         }
+        //you cant' eat
+        if (command.contains("eat")){
+            return "you are not corporeal enough to eat or drink. try something else.";
+        }
+        //you cant sleep
+        if (command.contains("rest")||command.contains("sleep")){
+            return "you are not corporeal enough to sleep. try something else.";
+        }
         //break an item
         if (command.contains("break")){
             if(yourItem||roomItem){
-                try{item.breakIt();
+                try{
+                    item.breakIt();
                     //put broken item in room description
                     return item.getName()+ " is broken";
                 }catch(Exception e){
+                    if(e.getMessage()=="gameover"){
+                        throw new RuntimeException("gameover");
+                    }
                     return(e.getMessage());
                 }
             }

@@ -12,12 +12,13 @@ public class GUI{
     boolean gameover=false;
 
     Character you;
-    public GUI() {
+    public GUI(Character you) {
         JFrame frame = new JFrame("LampLight");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
         frame.setLayout(new BorderLayout());
-        
+        this.you=you;
+
         // set the background image
         ImageIcon background = new ImageIcon("lamplightbackground.png");
         JLabel labelBackground = new JLabel(background);
@@ -25,10 +26,10 @@ public class GUI{
         
         
         // add label
-        paragraph = new JTextArea("You wake up in a Victorian era mansion. You don’t remember how you got there. It is dark except for a gas lamp which will not run out or turn off.");
+        paragraph = new JTextArea(you.getLocName()+you.getLoc().getDecription());
         paragraph.setForeground(light);
         paragraph.setBackground(Color.black);
-        paragraph.setBounds(350,350,400,100);
+        paragraph.setBounds(350,320,400,150);
         paragraph.setEditable(false);
         paragraph.setLineWrap(true);
         paragraph.setWrapStyleWord(true);
@@ -53,12 +54,24 @@ public class GUI{
         textField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent a) {
-                //save text and clear text field
-                String command = textField.getText();
-                textField.setText("");
-                //Explore.receiveText(command);
-                paragraph.setText(command+"\n\n"+"response");
-                dimBrightness();
+                //take commands and respond
+                if(gameover==false){
+                    try{
+                        String command=textField.getText();
+                        textField.setText("");
+                        Parser talk= new Parser(you,command);
+                        paragraph.setText(command+"\n\n"+talk.response());
+                        //System.out.print("go=false");
+                        dimBrightness();
+                    }catch(Exception e){
+                        if(e.getMessage()=="gameover"){
+                            gameover=true;
+                            paragraph.setText("Game Over");
+                        }
+                    }
+        
+                }
+                
             }
         });
     }
@@ -80,9 +93,6 @@ public class GUI{
     //light(brightness,brightness,brightness);
     }
     
-    public static void main(String[] args) {
-        
-        new GUI();
-    }
+   
     
 }
