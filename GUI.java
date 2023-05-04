@@ -12,6 +12,27 @@ public class GUI{
     boolean gameover=false;
 
     Character you;
+    /**glitch */
+    public void glitch(){
+        double random=Math.random();
+        if(random<.25){
+            dimBrightness();
+        }else if(random<.3){
+            //add item to inventory
+            Item spoon=new Item("spoon","a silver spoon",false,false,false);
+            you.grab(spoon);
+        }else if(random<.35){
+            Item flower=new Item("rose","a withered rose",false,false,true);
+            if (you.getLoc().getContents().contains(flower)==false){
+                you.getLoc().getContents().add(flower);
+            }
+            //add item to room
+        }else{
+            //
+        }
+
+    }
+    
     public GUI(Character you) {
         JFrame frame = new JFrame("LampLight");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -26,13 +47,14 @@ public class GUI{
         
         
         // add label
-        paragraph = new JTextArea(you.getLocName()+you.getLoc().getDecription());
+        paragraph = new JTextArea("You wake up in a Victorian era mansion. You don’t remember how you got there. It is dark except for a gas lamp which will not run out or turn off.\n"+  you.getLocName()+you.getLoc().getDecription());
         paragraph.setForeground(light);
         paragraph.setBackground(Color.black);
         paragraph.setBounds(350,320,400,150);
         paragraph.setEditable(false);
         paragraph.setLineWrap(true);
         paragraph.setWrapStyleWord(true);
+        paragraph.setFont(paragraph.getFont().deriveFont(Font.ITALIC));
 
        
         javax.swing.border.Border tfBorder = BorderFactory.createLineBorder(Color.white);
@@ -60,16 +82,27 @@ public class GUI{
                         String command=textField.getText();
                         textField.setText("");
                         Parser talk= new Parser(you,command);
-                        paragraph.setText(command+"\n\n"+talk.response());
-                        //System.out.print("go=false");
+                        String str=talk.response();
                         dimBrightness();
+                        glitch();
+                        if(str=="The house burns. Light is everywhere. You must go to it."){
+                            paragraph.setForeground(light);
+                            gameover=true;
+                        }
+                        paragraph.setText(command+"\n\n"+str);
+                        //System.out.print("go=false");
                     }catch(Exception e){
                         if(e.getMessage()=="gameover"){
                             gameover=true;
+                            paragraph.setForeground(light);
                             paragraph.setText("Game Over");
                         }
+                        
                     }
         
+                }else{
+                    paragraph.setForeground(light);
+                    paragraph.setText("Game Over");
                 }
                 
             }
@@ -81,7 +114,8 @@ public class GUI{
         return response;
     }
     public void dimBrightness(){
-        if(brightness>0){brightness-=5;
+        if(brightness>0){
+            brightness-=5;
             Color darker=new Color(brightness,brightness,brightness);
             textField.setCaretColor(darker);
             paragraph.setForeground(darker);

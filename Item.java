@@ -59,6 +59,13 @@ public class Item {
     }
 
     public void burnIt(){
+        if(name=="perfume"){
+            if(broken==true){
+                throw new RuntimeException ("The house burns. Light is everywhere. You must go to it.");
+            }else{
+                throw new RuntimeException ("You cannot burn it in the bottle. Break it.");
+            }
+        }
         if (flammable==true){
             if(burnt==false){
                 burnt=true;

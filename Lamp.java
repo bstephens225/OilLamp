@@ -1,5 +1,5 @@
 public class Lamp extends Item{
-    int brightness=100;
+    int brightness=255;
     public Lamp(){
         super("lamp","a small oil lamp",false,true,false);
     }

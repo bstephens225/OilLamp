@@ -48,9 +48,11 @@ public class Parser {
         double random=Math.random();
         if(random<.25){
             you.dimLamp();
-        }else if(random<.5){
+        }else if(random<.3){
             //add item to inventory
-        }else if(random<.75){
+            Item spoon=new Item("spoon","a silver spoon",false,false,false);
+            you.grab(spoon);
+        }else if(random<.35){
             //add item to room
         }else{
             //
@@ -113,6 +115,17 @@ public class Parser {
             }
             return "that item is not in your inventory";
         }
+        //if command says inspect
+        if (command.contains("inspect")||command.contains("look")){
+            if(roomItem||yourItem){
+                return item.getDecription();
+            }
+            if(command.contains("room")||command.contains("around")){
+                return current.getDecription();
+            }
+        return "that item is not here";
+        
+        }
         //you cant' eat
         if (command.contains("eat")){
             return "you are not corporeal enough to eat or drink. try something else.";
@@ -120,6 +133,10 @@ public class Parser {
         //you cant sleep
         if (command.contains("rest")||command.contains("sleep")){
             return "you are not corporeal enough to sleep. try something else.";
+        }
+        //you cant sit
+        if (command.contains("sit")){
+            return "you are not corporeal enough to sit down. try something else.";
         }
         //break an item
         if (command.contains("break")){
@@ -184,37 +201,37 @@ public class Parser {
             try{
                 you.walk("north");
             }catch(Exception e){
-                System.err.println(e.getMessage()); 
+                throw new RuntimeException(e.getMessage()); 
             }
         }else if(command.contains("south")){
             try{
                 you.walk("south");
             }catch(Exception e){
-                System.err.println(e.getMessage()); 
+                throw new RuntimeException(e.getMessage()); 
             }
         }else if(command.contains("east")){
             try{
                 you.walk("east");
             }catch(Exception e){
-                System.err.println(e.getMessage()); 
+                throw new RuntimeException(e.getMessage()); 
             }
         }else if(command.contains("west")){
             try{
                 you.walk("west");
             }catch(Exception e){
-                System.err.println(e.getMessage()); 
+                throw new RuntimeException(e.getMessage()); 
             }
         }else if(command.contains("up")){
             try{
                 you.walk("up");
             }catch(Exception e){
-                System.err.println(e.getMessage()); 
+                throw new RuntimeException(e.getMessage()); 
             }
         }else if(command.contains("down")){
             try{
                 you.walk("down");
             }catch(Exception e){
-                System.err.println(e.getMessage()); 
+                throw new RuntimeException(e.getMessage()); 
             }
         }else{
             throw new RuntimeException("that is not a direction");
