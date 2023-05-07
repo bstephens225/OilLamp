@@ -24,6 +24,8 @@ public class Location {
     //objects in the room
     public ArrayList<Item> contents= new ArrayList<Item>();
 
+    //unlocked
+    boolean locked=false;
     public Location(String name, String description, ArrayList<Item> contents, boolean north, boolean south, boolean west, boolean east, boolean up,boolean down){
         this.name=name;
         this.description=description;
@@ -65,6 +67,7 @@ public class Location {
     public ArrayList<Item> getContents(){
         return contents;
     }
+    
 
     /** 
      * @param Item item to be removed

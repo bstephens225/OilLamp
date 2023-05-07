@@ -15,6 +15,7 @@ public class Character {
     /** constructer
     @param FloorPlan map of house
     */
+    boolean lockedDoor=true;
     public Character(FloorPlan map){
         this.map=map;
         this.location=map.getCurrentRoom();
@@ -80,11 +81,29 @@ public class Character {
         }
     }
 
+    public boolean hasKey(){
+        for (int i=0;i<inventory.size();i++){
+            if (inventory.get(i).getName()=="key"){
+                return true;
+            }
+        }
+        return false;
+    }
     /** 
-     * @param Item item to be used
+     * unlock the office door
     */
-    public void use(Item item){
-
+    public void unlock(){
+        if(lockedDoor){
+            if(hasKey()){
+                lockedDoor=false;
+            }else{
+                throw new RuntimeException("you do not have the key");
+            }
+            
+        }else{
+            throw new RuntimeException("this door is not locked");
+        }
+        
     }
 
     /** 
@@ -110,6 +129,7 @@ public class Character {
             }
             Point3D newCoor=map.getCurrentCoor().add(x,y,z);
             location=map.getARoom(newCoor);
+            
         }
     }
     /** 
@@ -117,11 +137,16 @@ public class Character {
      * @thow RuntimeException if you can't walk that way
     */
     public void walk(String direction){
-        if (location.canExit(direction)){
-            changeLocation(direction);
+        if(location.getName()=="Master Bedroom: "&&lockedDoor&&direction=="north"){
+            throw new RuntimeException("that door is locked");
         }else{
-            throw new RuntimeException("you cannot go that way");
+            if (location.canExit(direction)){
+                changeLocation(direction);
+            }else{
+                throw new RuntimeException("you cannot go that way");
+            }
         }
+        
     }
 
 
