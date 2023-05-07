@@ -50,10 +50,12 @@ public class Parser {
             you.dimLamp();
         }else if(random<.3){
             //add item to inventory
-            Item spoon=new Item("spoon","a silver spoon",false,false,false);
+            Item spoon=new Item("spoon","a silver spoon that has been here the whole time",false,false,false);
             you.grab(spoon);
         }else if(random<.35){
             //add item to room
+            Item rose=new Item("rose","a dead and withered rose",false,false,true);
+            you.getLoc().addItem(rose);
         }else{
             //
         }
@@ -94,11 +96,14 @@ public class Parser {
             }
         }
         //if command says take and then an item in the room, grab that item and remove it from the room's contents
-        if (command.contains("take")||command.contains("grab")){
+        if (command.contains("take")||command.contains("grab")||command.contains("pick up")){
                 if(roomItem){
                     you.grab(item);
                     map.getCurrentRoom().removeItem(item);
                     return "you add "+item.getName()+" to your inventory";
+                }
+                if(yourItem){
+                    return "you already picked up that item";
                 }
             return "that item is not here";
             
@@ -127,7 +132,7 @@ public class Parser {
         
         }
         //you cant' eat
-        if (command.contains("eat")){
+        if (command.contains("eat")||command.contains("drink")){
             return "you are not corporeal enough to eat or drink. try something else.";
         }
         //you cant sleep
@@ -189,6 +194,19 @@ public class Parser {
                 }catch(Exception e){
                     return(e.getMessage());
                 }
+            }
+        }
+        //close an item
+        if (command.contains("unlock")){
+            if(you.getLocName()=="Master Bedroom: "){
+                try{
+                    you.unlock();
+                    return "you unlock the door";
+                }catch(Exception e){
+                    return(e.getMessage());
+                }
+            }else{
+                return "this room doesn't have any locked doors";
             }
         }
         //return for no action words found
