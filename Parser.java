@@ -55,7 +55,9 @@ public class Parser {
         }else if(random<.35){
             //add item to room
             Item rose=new Item("rose","a dead and withered rose",false,false,true);
-            you.getLoc().addItem(rose);
+            if(you.getLoc().getContents().contains(rose)){
+                you.getLoc().addItem(rose);
+            }
         }else{
             //
         }
