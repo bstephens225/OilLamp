@@ -19,12 +19,12 @@ public class GUI{
             dimBrightness();
         }else if(random<.3){
             //add item to inventory
-            Item spoon=new Item("spoon","a silver spoon",false,false,false);
+            Item spoon=new Item("spoon","a silver spoon you picked up earlier",false,false,false);
             you.grab(spoon);
         }else if(random<.35){
-            Item flower=new Item("rose","a withered rose",false,false,true);
+            Item flower=new Item("rose","a withered rose that's been here the whole time",false,false,true);
             if (you.getLoc().getContents().contains(flower)==false){
-                you.getLoc().getContents().add(flower);
+                you.getLoc().addItem(flower);
             }
             //add item to room
         }else{

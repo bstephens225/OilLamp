@@ -43,26 +43,6 @@ public class Parser {
         return invent;
     }
 
-    /**glitch */
-    public void glitch(){
-        double random=Math.random();
-        if(random<.25){
-            you.dimLamp();
-        }else if(random<.3){
-            //add item to inventory
-            Item spoon=new Item("spoon","a silver spoon that has been here the whole time",false,false,false);
-            you.grab(spoon);
-        }else if(random<.35){
-            //add item to room
-            Item rose=new Item("rose","a dead and withered rose",false,false,true);
-            if(you.getLoc().getContents().contains(rose)){
-                you.getLoc().addItem(rose);
-            }
-        }else{
-            //
-        }
-
-    }
     /** looks for action words and items in the command
      * @return String response to the request
     */
