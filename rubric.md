@@ -17,7 +17,7 @@ ___**YES**__ 1 pt: Some paths through the game have **restricted access** until 
 
 ___**YES**__ 2 pts: Selected classes(s) are **effective, efficient** at supporting the desired operations and program behavior.
 
-_____ 2 pts: Design justification includes a discussion of at least one (reasonable) **alternative design** that could have been used, and the reasons why you decided against this alternative.
+__**YES**__ 2 pts: Design justification includes a discussion of at least one (reasonable) **alternative design** that could have been used, and the reasons why you decided against this alternative.
 
 __**YES**__ 2 pts: The project makes effective use of **Java built-in classes** whenever they are appropriate.
 
@@ -31,9 +31,9 @@ ___**YES**__ 4 pts: Program compiles without errors or warnings.
 
 ___**YES**__ 2 pts: Executes fully & consistently without crashing (exception/freeze).
 
-_____ 2 pt: Complies with style guidelines (missing items 1 pt each):
+___**YES**__ 2 pt: Complies with style guidelines (missing items 1 pt each):
 
-      _____ Classes & class members all have Javadoc header comments.
+      __**YES**___ Classes & class members all have Javadoc header comments.
 
       ___**YES**__ Clear and consistent indentation of bracketed sections.
 
@@ -43,6 +43,6 @@ _____ 2 pt: Complies with style guidelines (missing items 1 pt each):
 
       ___**YES**__ Methods avoid confusing side effects.
 
-_____ 1 pt: All required files included with submission (including completed checklist file).
+__**YES**__ 1 pt: All required files included with submission (including completed checklist file).
 
-_____ 1 pt: `readme.md` contains your reflection on the project and responses to all prompts .
+__**YES**__ 1 pt: `readme.md` contains your reflection on the project and responses to all prompts .
