@@ -7,11 +7,12 @@ import javafx.geometry.Point3D;
 
 
 public class Character {
-    //character has a location in a floor plan and an inventory
+    //character has a location in a floor plan, an inventory, and a lamp
     Location location;
     private FloorPlan map=new FloorPlan(1,0,0);
     public ArrayList<Item> inventory= new ArrayList<Item>();
     Lamp lamp=new Lamp();
+
     /** constructer
     @param FloorPlan map of house
     */
@@ -25,6 +26,7 @@ public class Character {
     public void dimLamp(){
         lamp.dim();
     }
+
     /** 
      * @return Location current loc of character
     */
@@ -53,6 +55,7 @@ public class Character {
 
     /** 
      * print inventory of character
+     * not used in game
     */
     public void printInventory(){
         System.out.println("Current Inventory:");
@@ -64,6 +67,7 @@ public class Character {
 
     /** 
      * @param Item item to be picked up
+     * @return String saying that item has been grabbed
     */
     public void grab(Item item){
         inventory.add(item);
@@ -71,6 +75,8 @@ public class Character {
     
     /** 
      * @param Item item to be dropped
+     * @return String saying that item has been dropped
+     * @throws RuntimeException if you dont have the item you try to drop
     */
     public String drop(Item item){
         if(inventory.contains(item)==true){
@@ -81,6 +87,9 @@ public class Character {
         }
     }
 
+    /** 
+     * @return boolean whether player has the key
+    */
     public boolean hasKey(){
         for (int i=0;i<inventory.size();i++){
             if (inventory.get(i).getName()=="key"){
@@ -89,8 +98,10 @@ public class Character {
         }
         return false;
     }
+
     /** 
      * unlock the office door
+     * @throw RuntimeException if you dont have key or if you have aklready unlocked the door
     */
     public void unlock(){
         if(lockedDoor){
@@ -134,7 +145,8 @@ public class Character {
     }
     /** 
      * @param String direction to walk
-     * @thow RuntimeException if you can't walk that way
+     * @throw RuntimeException if you can't walk that way
+     * @throw RuntimeException if the door is locked
     */
     public void walk(String direction){
         if(location.getName()=="Master Bedroom: "&&lockedDoor&&direction=="north"){

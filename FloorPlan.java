@@ -5,7 +5,9 @@ import java.util.Hashtable;
 import javafx.geometry.Point3D;
 
 public class FloorPlan {
+    //create hashtable of coordinates and Locations
     Hashtable<Point3D,Location> rooms=new Hashtable<>();
+    //save current location and coordinates in the floorplan
     Location currentLoc;
     Point3D currentCoor; 
 
@@ -18,7 +20,7 @@ public class FloorPlan {
         
     }
 
-    //print list of rooms
+    //print list of rooms, not used in game
     public void printRooms(){
         System.out.println(rooms);
     }

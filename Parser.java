@@ -5,19 +5,32 @@
 */
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Parser {
-     //Scanner sc = new Scanner(System.in);
-    boolean gameover=false;
+    //make item to be mentioned
     private  Item item;
+
+    //store current location of character
     private  Location current;
+
+    //store string to be parsed
     String command;
+
+    //list of items to be checked for an item mentioned
     ArrayList<Item> itemz;
+
+    //store floorplan character is in
     FloorPlan map;
+
+    //store character
     Character you;
+
+    //store whether item in the room or in the inventory has been mentioned
     boolean roomItem=false;
     boolean yourItem=false;
+
+    //store boolean for if game is over
+    boolean gameover=false;
 
     /** constructor
     @param Character player
@@ -34,6 +47,7 @@ public class Parser {
     }
 
     /** prints inventory
+     * @return String list of item names and descriptions in inventory
     */
     public String printInventory(){
         String invent= "---INVENTORY---";
@@ -45,6 +59,7 @@ public class Parser {
 
     /** looks for action words and items in the command
      * @return String response to the request
+     * @throws RuntimeException if game is over
     */
     public String response(){
         //check command for movement words 
@@ -195,7 +210,11 @@ public class Parser {
         return "request not understood";
 
     }
-    //try walking and return error if you cant go that way or if it is not a direction
+    
+    /** try walking and return error if you cant go that way or if it is not a direction
+     * @throws RuntimeException if that direction does not exist
+     * @throws RuntimeException if you can't go that way
+    */
     public void updateLocation(){
         if(command.contains("north")){
             try{
@@ -239,7 +258,9 @@ public class Parser {
         //change current location
     }
 
-    //describe the room you are in
+    /** describe the room you're in
+     * @return String room description of current location
+    */
     public String describe(){
         return you.getLocName()+you.getLoc().getDecription();
     }

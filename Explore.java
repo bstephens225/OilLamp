@@ -5,14 +5,12 @@
 */
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import javafx.geometry.Point3D;
 
 
 public class Explore {
     
     public static void main(String[] arguments) {
-      boolean gameover=false;
       //living room
       Item sofa=new Item("sofa","an old green velvet sofa", false ,false, false);
       Item chair=new Item("armchair","an old green velvet armchair which matches the sofa", false, false, false);
@@ -130,7 +128,7 @@ public class Explore {
       Character you=new Character(map);
       
 
-     
+     //start graphics!
       new GUI(you);
       
   }
